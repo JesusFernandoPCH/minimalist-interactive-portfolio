@@ -1,0 +1,146 @@
+{
+  "basics": {
+    "name": "Nombre",
+    "label": "¿Qué eres?",
+    "image": "https://avatars.githubusercontent.com/u/91228231?v=4",
+    "email": "correo@correo.com",
+    "phone": "+00 1234567890",
+    "url": "https://midu.dev",
+    "summary": "Describete.",
+    "location": {
+      "address": "",
+      "postalCode": "64714",
+      "city": "Ciudad",
+      "countryCode": "MX",
+      "region": "Pais"
+    },
+    "profiles": [
+      {
+        "network": "LinkedIn",
+        "username": "UserName",
+        "url": "https://linkedin.com"
+      },
+      {
+        "network": "X",
+        "username": "UserName",
+        "url": "https://x.com"
+      },
+      {
+        "network": "GitHub",
+        "username": "midudev",
+        "url": "https://github.com"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "Nombre Empresa",
+      "position": "Puesto",
+      "url": "",
+      "startDate": "2021-01-01",
+      "endDate": null,
+      "summary": "Actividades.",
+      "highlights": [
+        "Started the company"
+      ]
+    }
+  ],
+  "volunteer": [
+    {
+      "organization": "Organization",
+      "position": "Volunteer",
+      "url": "https://organization.com/",
+      "startDate": "2012-01-01",
+      "endDate": "2013-01-01",
+      "summary": "Description…",
+      "highlights": [
+        "Awarded 'Volunteer of the Month'"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Nombre Institución",
+      "url": "link",
+      "area": "Especialidad",
+      "studyType": "",
+      "startDate": "2001-01",
+      "endDate": "2008-01",
+      "score": "4.0",
+      "courses": [
+        "DB1101 - Basic SQL"
+      ]
+    }
+  ],
+  "awards": [
+    {
+      "title": "Award",
+      "date": "2014-11-01",
+      "awarder": "Company",
+      "summary": "There is no spoon."
+    }
+  ],
+  "certificates": [
+    {
+      "name": "Certificate",
+      "date": "2021-11-07",
+      "issuer": "Company",
+      "url": "https://certificate.com"
+    }
+  ],
+  "publications": [
+    {
+      "name": "Publication",
+      "publisher": "Company",
+      "releaseDate": "2014-10-01",
+      "url": "https://publication.com",
+      "summary": "Description…"
+    }
+  ],
+  "skills": [
+    {
+      "name": "HTML",
+      "level": "Master",
+      "keywords": [
+        "Desarrollo Web",
+        "Frontend"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "Spanish",
+      "fluency": "Native speaker"
+    },
+    {
+      "language": "English",
+      "fluency": "Advanced"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Wildlife",
+      "keywords": [
+        "Ferrets",
+        "Unicorns"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "name": "Jane Doe",
+      "reference": "Reference…"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Nombre Prpyecto",
+      "isActive": true,
+      "description": "De que trata tu proyecto",
+      "highlights": [
+        ""
+      ],
+      "url": "link"
+    }
+  ]
+}

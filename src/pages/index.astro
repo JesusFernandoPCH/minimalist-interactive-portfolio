@@ -1,0 +1,39 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { CVBuilder } from "@/components/react/CVBuilder";
+
+import { basics } from "@cv";
+const { name, label } = basics;
+---
+
+<Layout title={`Editor de CV Portafolio - ${name} - ${label}`}>
+  <CVBuilder client:load />
+</Layout>
+
+<style is:global>
+  /* Reset or global styles overrides for the builder full screen experience */
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  @media print {
+    body,
+    html {
+      overflow: visible;
+      height: auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    body,
+    html {
+      overflow: visible;
+      height: auto;
+    }
+  }
+</style>
