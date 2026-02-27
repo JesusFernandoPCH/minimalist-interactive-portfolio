@@ -46,10 +46,11 @@ export const Hero: React.FC<Props> = ({ basics }) => {
     const { name, label, image, location, profiles, phone, email } = basics;
     const { city, region } = location;
 
-    const linkedInfo = profiles.find(({ network }) => network === "LinkedIn");
-    const linkedUrl = linkedInfo?.url;
-
-    const printInfo = [email, phone, linkedUrl].filter(Boolean).join(" • ");
+    const printInfo = [
+        email,
+        phone,
+        ...profiles.map(p => p.username ? `${p.username}` : p.url)
+    ].filter(Boolean).join(" • ");
 
     return (
         <Section>
@@ -62,7 +63,27 @@ export const Hero: React.FC<Props> = ({ basics }) => {
                         {city}, {region}
                     </span>
                     <footer className={styles.print}>
-                        {printInfo}
+                        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', fontSize: '0.85rem' }}>
+                            {email && (
+                                <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                    <Icons.Mail /> {email}
+                                </span>
+                            )}
+                            {phone && (
+                                <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                    <Icons.Phone /> {phone}
+                                </span>
+                            )}
+                            {profiles.map(({ network, url, username }, index) => {
+                                const Icon = SOCIAL_ICONS[network];
+                                if (!Icon) return null;
+                                return (
+                                    <span key={index} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                        <Icon /> {username || url}
+                                    </span>
+                                );
+                            })}
+                        </div>
                     </footer>
                     <footer className={styles.noPrint}>
                         {email && (

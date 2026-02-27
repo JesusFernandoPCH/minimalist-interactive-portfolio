@@ -5,7 +5,43 @@ import { Experience } from './Experience';
 import { Education } from './Education';
 import { Projects } from './Projects';
 import { Skills } from './Skills';
+import * as Icons from './Icons';
 import defaultCvData from '../../../cv.json';
+
+const SOCIAL_ICONS: Record<string, React.FC> = {
+    GitHub: Icons.GitHub,
+    LinkedIn: Icons.LinkedIn,
+    X: Icons.X,
+    Facebook: Icons.Facebook,
+    Instagram: Icons.Instagram,
+    YouTube: Icons.YouTube,
+};
+
+const SKILLS_ICONS: Record<string, React.FC> = {
+    HTML: Icons.Html,
+    CSS: Icons.Css,
+    JavaScript: (Icons as any).Javascript,
+    TypeScript: Icons.TypeScript,
+    React: Icons.ReactIcon,
+    Node: Icons.Node,
+    MySQL: Icons.Sql,
+    Git: Icons.Git,
+    GitHub: Icons.GitHub,
+    'Next.js': Icons.Next,
+    Tailwind: Icons.Tailwind,
+    Swift: Icons.Swift,
+    SwiftUI: (Icons as any).Swiftui,
+    Kotlin: Icons.Kotlin,
+    Flutter: Icons.Flutter,
+    Astro: Icons.Astro,
+    GSAP: Icons.Gsap,
+    Vue: Icons.Vue,
+    Svelte: Icons.Svelte,
+    Angular: Icons.Angular,
+    Python: Icons.Python,
+    Docker: Icons.Docker,
+    Figma: Icons.Figma,
+};
 
 export const CVBuilder: React.FC = () => {
     const [cvData, setCvData] = useState(defaultCvData);
@@ -64,12 +100,12 @@ export const CVBuilder: React.FC = () => {
         }));
     };
 
-    const addProfile = () => {
+    const addProfile = (network: string) => {
         setCvData(prev => ({
             ...prev,
             basics: {
                 ...prev.basics,
-                profiles: [...prev.basics.profiles, { network: '', username: '', url: '' }]
+                profiles: [...prev.basics.profiles, { network, username: '', url: '' }]
             }
         }));
     };
@@ -159,10 +195,11 @@ export const CVBuilder: React.FC = () => {
         setCvData(prev => ({ ...prev, skills: newSkill as any }));
     };
 
-    const addSkill = () => {
+    const addSkill = (name: string) => {
+        if (cvData.skills.some(s => s.name === name)) return;
         setCvData(prev => ({
             ...prev,
-            skills: [{ name: '', level: '', keywords: [] }, ...prev.skills] as any
+            skills: [{ name, level: '', keywords: [] }, ...prev.skills] as any
         }));
     };
 
@@ -271,36 +308,44 @@ export const CVBuilder: React.FC = () => {
 
                 <section style={{ marginBottom: '20px' }}>
                     <h3 style={{ fontSize: '1.2rem', borderBottom: '1px solid #ddd', paddingBottom: '8px', marginBottom: '12px' }}>Redes Sociales</h3>
-                    {cvData.basics.profiles.map((profile, index) => (
-                        <div key={index} style={{ marginBottom: '16px', padding: '12px', border: '1px solid #eee', borderRadius: '4px', position: 'relative' }}>
-                            <button
-                                onClick={() => removeProfile(index)}
-                                style={{ position: 'absolute', top: '8px', right: '8px', background: 'transparent', color: 'red', border: 'none', cursor: 'pointer', fontSize: '1.2rem' }}
-                                title="Eliminar red social"
-                            >×</button>
-                            <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem' }}>
-                                <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600, marginBottom: '4px' }}>
-                                    Red
-                                    <span
-                                        title="Redes soportadas con icono: LinkedIn, GitHub, X, Facebook, Instagram, YouTube"
-                                        style={{ cursor: 'help', fontSize: '0.8rem', backgroundColor: '#e0e0e0', color: '#555', borderRadius: '50%', width: '16px', height: '16px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
-                                    >?</span>
-                                </span>
-                                <input type="text" value={profile.network} onChange={e => handleProfileChange(index, 'network', e.target.value)} style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }} />
-                            </label>
-                            <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem' }}>
-                                <span style={{ display: 'block', fontWeight: 600, marginBottom: '4px' }}>Usuario:</span>
-                                <input type="text" value={profile.username} onChange={e => handleProfileChange(index, 'username', e.target.value)} style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }} />
-                            </label>
-                            <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem' }}>
-                                <span style={{ display: 'block', fontWeight: 600, marginBottom: '4px' }}>URL:</span>
-                                <input type="url" value={profile.url} onChange={e => handleProfileChange(index, 'url', e.target.value)} style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }} />
-                            </label>
-                        </div>
-                    ))}
-                    <button onClick={addProfile} style={{ width: '100%', padding: '8px', background: '#eee', border: '1px dashed #ccc', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
-                        + Agregar Red Social
-                    </button>
+                    {cvData.basics.profiles.map((profile, index) => {
+                        const Icon = SOCIAL_ICONS[profile.network];
+                        return (
+                            <div key={index} style={{ marginBottom: '16px', padding: '12px', border: '1px solid #eee', borderRadius: '4px', position: 'relative' }}>
+                                <button
+                                    onClick={() => removeProfile(index)}
+                                    style={{ position: 'absolute', top: '8px', right: '8px', background: 'transparent', color: 'red', border: 'none', cursor: 'pointer', fontSize: '1.2rem' }}
+                                    title="Eliminar red social"
+                                >×</button>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', fontWeight: 'bold' }}>
+                                    {Icon && <Icon />} <span>{profile.network}</span>
+                                </div>
+                                <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem' }}>
+                                    <span style={{ display: 'block', fontWeight: 600, marginBottom: '4px' }}>Usuario:</span>
+                                    <input type="text" value={profile.username} onChange={e => handleProfileChange(index, 'username', e.target.value)} style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }} />
+                                </label>
+                                <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem' }}>
+                                    <span style={{ display: 'block', fontWeight: 600, marginBottom: '4px' }}>URL:</span>
+                                    <input type="url" value={profile.url} onChange={e => handleProfileChange(index, 'url', e.target.value)} style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }} />
+                                </label>
+                            </div>
+                        );
+                    })}
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '12px' }}>
+                        {Object.entries(SOCIAL_ICONS).map(([network, Icon]) => {
+                            const isAdded = cvData.basics.profiles.some(p => p.network === network);
+                            return (
+                                <button
+                                    key={network}
+                                    onClick={() => !isAdded && addProfile(network)}
+                                    disabled={isAdded}
+                                    style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', background: isAdded ? '#e0f7fa' : '#eee', color: isAdded ? '#006064' : 'inherit', border: isAdded ? '1px solid #b2ebf2' : '1px solid #ccc', borderRadius: '20px', cursor: isAdded ? 'default' : 'pointer', fontSize: '0.85rem', opacity: isAdded ? 0.7 : 1 }}
+                                >
+                                    <Icon /> {network}
+                                </button>
+                            );
+                        })}
+                    </div>
                 </section>
 
                 <section style={{ marginBottom: '20px' }}>
@@ -430,29 +475,53 @@ export const CVBuilder: React.FC = () => {
 
                 <section style={{ marginBottom: '20px' }}>
                     <h3 style={{ fontSize: '1.2rem', borderBottom: '1px solid #ddd', paddingBottom: '8px', marginBottom: '12px' }}>Habilidades</h3>
-                    {cvData.skills.map((skill, index) => (
-                        <div key={index} style={{ marginBottom: '16px', padding: '12px', border: '1px solid #eee', borderRadius: '4px', position: 'relative' }}>
-                            <button
-                                onClick={() => removeSkill(index)}
-                                style={{ position: 'absolute', top: '8px', right: '8px', background: 'transparent', color: 'red', border: 'none', cursor: 'pointer', fontSize: '1.2rem' }}
-                                title="Eliminar habilidad"
-                            >×</button>
-                            <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem' }}>
-                                <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600, marginBottom: '4px' }}>
-                                    Tecnología / Habilidad
-                                    <span
-                                        title="Habilidades con icono: HTML, CSS, JavaScript, TypeScript, React, Next, Node, Tailwind, Git, SQL, Flutter, Kotlin, Swift, SwiftUI, Astro, GSAP, Vue, Svelte, Angular, Python, Docker, Figma"
-                                        style={{ cursor: 'help', fontSize: '0.8rem', backgroundColor: '#e0e0e0', color: '#555', borderRadius: '50%', width: '16px', height: '16px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
-                                    >?</span>
-                                </span>
-                                <input type="text" value={skill.name} onChange={e => handleSkillChange(index, 'name', e.target.value)} style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }} />
-                            </label>
-                        </div>
-                    ))}
-                    <button onClick={addSkill} style={{ width: '100%', padding: '8px', background: '#eee', border: '1px dashed #ccc', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
-                        + Agregar Habilidad
-                    </button>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '16px' }}>
+                        {cvData.skills.map((skill, index) => {
+                            const Icon = SKILLS_ICONS[skill.name];
+                            return (
+                                <div key={index} style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', background: '#e0f7fa', color: '#006064', border: '1px solid #b2ebf2', borderRadius: '20px', fontSize: '0.85rem' }}>
+                                    {Icon && <Icon />}
+                                    <span>{skill.name}</span>
+                                    <button
+                                        onClick={() => removeSkill(index)}
+                                        style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#006064', padding: '0 0 0 4px', fontSize: '1rem', lineHeight: 1 }}
+                                        title="Eliminar habilidad"
+                                    >×</button>
+                                </div>
+                            );
+                        })}
+                    </div>
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '12px' }}>
+                        {Object.entries(SKILLS_ICONS).map(([skill, Icon]) => {
+                            const isAdded = cvData.skills.some(s => s.name === skill);
+                            return (
+                                <button
+                                    key={skill}
+                                    onClick={() => !isAdded && addSkill(skill)}
+                                    disabled={isAdded}
+                                    style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', background: isAdded ? '#f0f0f0' : '#eee', color: isAdded ? '#aaa' : 'inherit', border: isAdded ? '1px solid #eee' : '1px solid #ccc', borderRadius: '20px', cursor: isAdded ? 'default' : 'pointer', fontSize: '0.85rem', opacity: isAdded ? 0.5 : 1 }}
+                                >
+                                    <Icon /> {skill}
+                                </button>
+                            );
+                        })}
+                    </div>
                 </section>
+
+                <div style={{ display: 'flex', gap: '8px', marginBottom: '24px' }}>
+                    <button
+                        onClick={() => window.print()}
+                        style={{ flex: 1, padding: '8px', background: '#111', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
+                    >
+                        🖨️ Imprimir CV
+                    </button>
+                    <button
+                        onClick={downloadJson}
+                        style={{ flex: 1, padding: '8px', background: '#0066cc', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
+                    >
+                        💾 Guardar JSON
+                    </button>
+                </div>
 
                 <p style={{ fontSize: '0.8rem', color: '#888' }}>
                     Basado en el diseño original de midudev
