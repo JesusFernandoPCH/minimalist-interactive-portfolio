@@ -1,7 +1,7 @@
 
 
 <div align="center">
-<img src="portada.gif" height="90px" width="auto" /> 
+<img src="logo.png" height="90px" width="auto" /> 
 <h2>
     <em>Résumé</em> minimalista maquetado para web y pdf
 </h2>
@@ -48,7 +48,7 @@ Basado en el diseño de <a href="https://github.com/BartoszJarocki/cv">Bartosz J
 
 </div>
 
-<img src="portada.png"></img>
+<img src="portada.gif"></img>
 
 ## 🛠️ Stack
 
@@ -71,15 +71,11 @@ Este repositorio incorpora mejoras sustanciales sobre el template original orien
 ### 1. Clona e instala este proyecto
 
 
-- Este proyecto usa [pnpm](https://pnpm.io/installation) como gestor de dependencias y empaquetador.
+- Este proyecto usa **npm** como gestor de dependencias y empaquetador.
 
 ```bash
-# Activa pnpm en MacOS, WSL & Linux:
-corepack enable
-corepack prepare pnpm@latest --activate
-
 # Instala las dependencias del proyecto
-pnpm install
+npm install
 ```
 
 ### 2. Edita con el CV Builder o Añade tu contenido:
@@ -89,7 +85,7 @@ Edita el archivo `cv.json` directamente, o usa las nuevas características de nu
 
 ```bash
 # Disfruta del resultado
-pnpm dev
+npm run dev
 ```
 
 Abre [**http://localhost:4321**](http://localhost:4321/) en tu navegador para ver el resultado y acceder al editor 🚀.
