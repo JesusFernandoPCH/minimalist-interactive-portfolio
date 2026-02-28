@@ -21,8 +21,10 @@ export const Experience: React.FC<Props> = ({ work }) => {
         <Section title="Experiencia laboral">
             <ul className={styles.ul}>
                 {work.map(({ name, startDate, endDate, position, summary, url }, index) => {
-                    const startYear = new Date(startDate).getUTCFullYear();
-                    const endYear = endDate != null ? new Date(endDate).getUTCFullYear() : "Actual";
+                    const startDateObj = new Date(startDate);
+                    const startYear = `${startDateObj.toLocaleString('es-ES', { month: 'short', timeZone: 'UTC' })} ${startDateObj.getUTCFullYear()}`;
+                    const endDateObj = endDate != null ? new Date(endDate) : null;
+                    const endYear = endDateObj ? `${endDateObj.toLocaleString('es-ES', { month: 'short', timeZone: 'UTC' })} ${endDateObj.getUTCFullYear()}` : "Actual";
 
                     return (
                         <li key={index}>

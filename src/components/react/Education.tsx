@@ -19,8 +19,10 @@ export const Education: React.FC<Props> = ({ education }) => {
         <Section title="Educación">
             <ul className={styles.ul}>
                 {education.map(({ institution, startDate, endDate, area, studyType }, index) => {
-                    const startYear = new Date(startDate).getUTCFullYear();
-                    const endYear = endDate != null ? new Date(endDate).getUTCFullYear() : "Actual";
+                    const startDateObj = new Date(startDate);
+                    const startYear = `${startDateObj.toLocaleString('es-ES', { month: 'short', timeZone: 'UTC' })} ${startDateObj.getUTCFullYear()}`;
+                    const endDateObj = endDate != null ? new Date(endDate) : null;
+                    const endYear = endDateObj ? `${endDateObj.toLocaleString('es-ES', { month: 'short', timeZone: 'UTC' })} ${endDateObj.getUTCFullYear()}` : "Actual";
                     const years = `${startYear} - ${endYear}`;
 
                     return (
