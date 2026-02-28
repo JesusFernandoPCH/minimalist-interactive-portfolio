@@ -40,7 +40,33 @@ const printInfo = [email, phone, linkedUrl].filter(Boolean).join(" • ");
         {city}, {region}
       </span>
       <footer class="print">
-        {printInfo}
+        {
+          email && (
+            <a href={`mailto:${email}`}>
+              <Mail />
+              {email}
+            </a>
+          )
+        }
+        {
+          phone && (
+            <a href={`tel:${phone}`}>
+              <Phone />
+              {phone}
+            </a>
+          )
+        }
+        {
+          profiles.map(({ network, url, username }) => {
+            const Icon = SOCIAL_ICONS[network];
+            return (
+              <a href={url} target="_blank" rel="noopener noreferrer">
+                {Icon && <Icon />}
+                {username || network}
+              </a>
+            );
+          })
+        }
       </footer>
       <footer class="no-print">
         {
@@ -142,7 +168,7 @@ const printInfo = [email, phone, linkedUrl].filter(Boolean).join(" • ");
     margin-top: 8px;
   }
 
-  footer a {
+  .no-print a {
     color: #777;
     display: inline-flex;
     align-items: center;
@@ -155,9 +181,29 @@ const printInfo = [email, phone, linkedUrl].filter(Boolean).join(" • ");
     transition: all 0.3s ease;
   }
 
-  footer a:hover {
+  .no-print a:hover {
     background: #eee;
     border: 1px solid #ddd;
+  }
+
+  .print {
+    display: none;
+    gap: 10px;
+  }
+
+  .print a {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  @media print {
+    .print {
+      display: flex !important;
+      flex-wrap: wrap;
+    }
   }
 
   @media (width <= 700px) {

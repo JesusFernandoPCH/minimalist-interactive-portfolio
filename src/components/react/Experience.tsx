@@ -53,7 +53,7 @@ export const Experience: React.FC<Props> = ({ work }) => {
                                     </div>
                                 </header>
                                 <footer>
-                                    <p>{summary}</p>
+                                    <p className={styles.summary}>{summary}</p>
                                 </footer>
                             </article>
                         </li>

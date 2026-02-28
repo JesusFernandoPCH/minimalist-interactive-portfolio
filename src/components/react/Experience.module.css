@@ -25,6 +25,11 @@
     margin: 0;
 }
 
+.summary {
+    text-align: justify;
+    white-space: pre-line;
+}
+
 .header {
     display: flex;
     justify-content: space-between;

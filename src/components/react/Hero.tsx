@@ -65,22 +65,22 @@ export const Hero: React.FC<Props> = ({ basics }) => {
                     <footer className={styles.print}>
                         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', fontSize: '0.85rem' }}>
                             {email && (
-                                <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                <a href={`mailto:${email}`} style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'inherit', textDecoration: 'none' }}>
                                     <Icons.Mail /> {email}
-                                </span>
+                                </a>
                             )}
                             {phone && (
-                                <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                <a href={`tel:${phone}`} style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'inherit', textDecoration: 'none' }}>
                                     <Icons.Phone /> {phone}
-                                </span>
+                                </a>
                             )}
                             {profiles.map(({ network, url, username }, index) => {
                                 const Icon = SOCIAL_ICONS[network];
                                 if (!Icon) return null;
                                 return (
-                                    <span key={index} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                        <Icon /> {username || url}
-                                    </span>
+                                    <a key={index} href={url} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'inherit', textDecoration: 'none' }}>
+                                        <Icon /> {username || network}
+                                    </a>
                                 );
                             })}
                         </div>

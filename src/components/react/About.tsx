@@ -8,7 +8,7 @@ interface Props {
 export const About: React.FC<Props> = ({ summary }) => {
     return (
         <Section title="Sobre mí">
-            <p>
+            <p style={{ textAlign: 'justify', whiteSpace: 'pre-line' }}>
                 {summary}
             </p>
         </Section>
